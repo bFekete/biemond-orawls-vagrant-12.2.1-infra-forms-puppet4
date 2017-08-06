@@ -15,7 +15,7 @@ domain_adminserver_address: &domain_adminserver_address     "10.10.10.21"
 
 
 # when you have just one domain on a server
-domain_name:                &domain_name                "wcs_domain"
+domain_name:                &domain_name                "forms_domain"
 domain_wls_password:        &domain_wls_password        "weblogic1"
 
 orawls::weblogic::log_output:           true
@@ -23,8 +23,8 @@ orawls::weblogic::version:              *wls_version
 orawls::weblogic::middleware_home_dir:  *wls_middleware_home_dir
 
 orautils::os_domain:           "wcs_domain"
-orautils::os_domain_path:      "/opt/oracle/middleware12c/user_projects/domains/wcs_domain"
-orautils::node_mgr_path:       "/opt/oracle/middleware12c/user_projects/domains/wcs_domain/bin"
+orautils::os_domain_path:      "/opt/oracle/middleware12c/user_projects/domains/forms_domain"
+orautils::node_mgr_path:       "/opt/oracle/middleware12c/user_projects/domains/forms_domain/bin"
 orautils::node_mgr_address:    '10.10.10.21'
 orautils::node_mgr_port:       5556
 orautils::wls_password:        "weblogic1"
@@ -38,3 +38,42 @@ fmw_installations:
     fmw_product:               "forms"
     fmw_file1:                 "fmw_12.2.1.2.0_fr_linux64_Disk1_1of1.zip"
     oracle_base_home_dir:      *wls_oracle_base_home_dir
+
+# no patching
+
+# create a standard domain
+domain_instances:
+  'forms_domain':
+     domain_template:                  "forms"
+     repository_database_url:          "jdbc:oracle:thin:@wlsdb.example.com:1521/wlsrepos.example.com"
+     repository_prefix:                "DEV1"
+     repository_password:              "Welcome01"
+     repository_sys_password:          "Welcome01"
+     rcu_database_url:                 "wlsdb.example.com:1521:wlsrepos.example.com"
+     domain_name:                      *domain_name
+     development_mode:                 true
+     log_output:                       *logoutput
+     adminserver_address:              *domain_adminserver_address
+     weblogic_password:                *domain_wls_password
+     jsse_enabled:                     *wls_jsse_enabled
+     log_dir:                          *wls_log_dir
+     create_default_coherence_cluster: true
+
+# create and startup the nodemanager
+nodemanager_instances:
+  'nodemanager':
+     log_file:                              'nodemanager_forms.log'
+     nodemanager_address:                   *domain_adminserver_address
+     domain_name:                           *domain_name
+     jsse_enabled:                          *wls_jsse_enabled
+
+# startup adminserver for extra configuration
+control_instances:
+  'startWLSAdminServer':
+     domain_name:                 *domain_name
+     server_type:                 'admin'
+     target:                      'Server'
+     action:                      'start'
+     jsse_enabled:                *wls_jsse_enabled
+     adminserver_address:         *domain_adminserver_address
+     weblogic_password:           *domain_wls_password

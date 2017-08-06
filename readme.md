@@ -1,4 +1,4 @@
-#WebLogic 12.2.1 webcenter sites
+#WebLogic 12.2.1 Oracle Forms and Reports
 
 ## Details
 - CentOS 7 vagrant box
@@ -9,8 +9,9 @@
 Download & Add the all the Oracle binaries to /software
 
 edit Vagrantfile and update the software share to your own local folder
-- wlsdb.vm.synced_folder "/Users/edwin/software", "/software"
-- admin.vm.synced_folder "/Users/edwin/software", "/software"
+- wlsdb.vm.synced_folder "C:/Vagrant/Software", "/software"
+- admin.vm.synced_folder "C:/Vagrant/Software", "/software"
+
 
 Vagrant boxes
 - vagrant up wlsdb
@@ -26,10 +27,11 @@ Vagrant boxes
 
 ## Middleware
 
-### Cluster with 1 node
+### 2 Clusters with 1 node each
 - wcsadmin 10.10.10.21, WebLogic 12.2.1 with Oracle Forms requires RCU
 
-http://10.10.10.21:7001/em with weblogic1 as password
+- http://10.10.10.21:7001/em with weblogic1 as password
+- http://10.10.10.21:7001/console with weblogic1 as password
 
 ###software
 - JDK 1.8u121 jdk-8u121-linux-x64.tar.gz
