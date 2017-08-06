@@ -1,0 +1,40 @@
+---
+
+wls_os_user:              &wls_os_user              "oracle"
+wls_weblogic_user:        &wls_weblogic_user        "weblogic"
+wls_weblogic_home_dir:    &wls_weblogic_home_dir    "/opt/oracle/middleware12c/wlserver"
+wls_middleware_home_dir:  &wls_middleware_home_dir  "/opt/oracle/middleware12c"
+wls_version:              &wls_version              12212
+wls_jdk_home_dir:         &wls_jdk_home_dir         "/usr/java/latest"
+wls_oracle_base_home_dir: &wls_oracle_base_home_dir "/opt/oracle"
+wls_jsse_enabled:         &wls_jsse_enabled         true
+wls_log_dir:              &wls_log_dir              "/var/log/weblogic"
+
+
+domain_adminserver_address: &domain_adminserver_address     "10.10.10.21"
+
+
+# when you have just one domain on a server
+domain_name:                &domain_name                "wcs_domain"
+domain_wls_password:        &domain_wls_password        "weblogic1"
+
+orawls::weblogic::log_output:           true
+orawls::weblogic::version:              *wls_version
+orawls::weblogic::middleware_home_dir:  *wls_middleware_home_dir
+
+orautils::os_domain:           "wcs_domain"
+orautils::os_domain_path:      "/opt/oracle/middleware12c/user_projects/domains/wcs_domain"
+orautils::node_mgr_path:       "/opt/oracle/middleware12c/user_projects/domains/wcs_domain/bin"
+orautils::node_mgr_address:    '10.10.10.21'
+orautils::node_mgr_port:       5556
+orautils::wls_password:        "weblogic1"
+orautils::wls_adminserver:     "AdminServer"
+
+logoutput:                     &logoutput                     true
+
+# FMW installation on top of WebLogic 12.2.1
+fmw_installations:
+  'wcs1221':
+    fmw_product:               "forms"
+    fmw_file1:                 "fmw_12.2.1.2.0_fr_linux64_Disk1_1of1.zip"
+    oracle_base_home_dir:      *wls_oracle_base_home_dir
