@@ -1,4 +1,4 @@
-node 'wcsadmin.example.com' {
+node 'admin.example.com' {
 
   include os
   include java
