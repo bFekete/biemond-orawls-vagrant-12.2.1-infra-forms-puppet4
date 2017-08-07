@@ -22,7 +22,7 @@ orawls::weblogic::log_output:           true
 orawls::weblogic::version:              *wls_version
 orawls::weblogic::middleware_home_dir:  *wls_middleware_home_dir
 
-orautils::os_domain:           "wcs_domain"
+orautils::os_domain:           "forms_domain"
 orautils::os_domain_path:      "/opt/oracle/middleware12c/user_projects/domains/forms_domain"
 orautils::node_mgr_path:       "/opt/oracle/middleware12c/user_projects/domains/forms_domain/bin"
 orautils::node_mgr_address:    '10.10.10.21'
@@ -77,3 +77,23 @@ control_instances:
      jsse_enabled:                *wls_jsse_enabled
      adminserver_address:         *domain_adminserver_address
      weblogic_password:           *domain_wls_password
+
+wls_setting_instances:
+  'forms_domain':
+    user:                      *wls_os_user
+    weblogic_home_dir:         *wls_weblogic_home_dir
+    connect_url:               't3://10.10.10.21:7001'
+    weblogic_user:             *wls_weblogic_user
+    weblogic_password:         *domain_wls_password
+
+server_instances:
+  'forms_domain/WLS_FORMS':
+    ensure:       'present'
+    machine:      'LocalMachine'
+    listenport:    9001
+    ssllistenport: 9101
+  'forms_domain/WLS_REPORTS':
+    ensure:       'present'
+    machine:      'LocalMachine'
+    listenport:    9002
+    ssllistenport: 9102

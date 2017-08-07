@@ -15,7 +15,7 @@ edit Vagrantfile and update the software share to your own local folder
 
 Vagrant boxes
 - vagrant up wlsdb
-- vagrant up wcsadmin
+- vagrant up admin
 
 ## Database
 - wlsdb 10.10.10.5 with Welcome01 as password
