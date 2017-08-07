@@ -28,7 +28,7 @@ Vagrant boxes
 ## Middleware
 
 ### 2 Clusters with 1 node each
-- wcsadmin 10.10.10.21, WebLogic 12.2.1 with Oracle Forms requires RCU
+- admin 10.10.10.21, WebLogic 12.2.1 with Oracle Forms requires RCU
 
 - http://10.10.10.21:7001/em with weblogic1 as password
 - http://10.10.10.21:7001/console with weblogic1 as password
